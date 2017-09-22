@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset>
+    <description>This is config for this repo</description>
+
+    <arg name="colors"/>
+
+    <file>Camelot</file>
+    <file>src</file>
+
+    <rule ref="Camelot"/>
+</ruleset>
