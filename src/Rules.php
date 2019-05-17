@@ -14,17 +14,12 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         '@Symfony:risky'              => true,
 
         // Override Symfony's rules
-        'binary_operator_spaces'      => [
-            'align_double_arrow' => true,
-            'align_equals'       => null, // ignore equals alignment
-        ],
         'braces'                      => [
             'allow_single_line_closure' => true,
         ],
         'concat_space'                => ['spacing' => 'one'],
         'method_argument_space'       => [
-            'keep_multiple_spaces_after_comma' => true,
-            'ensure_fully_multiline'           => true,
+            'on_multiline'                     => true,
         ],
         // Non-line @inheritdoc completely replaces anything else
         // So notes can be added without including it in the doc.
