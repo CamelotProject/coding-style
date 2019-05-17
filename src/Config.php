@@ -44,7 +44,7 @@ class Config extends \PhpCsFixer\Config
             $rules = iterator_to_array($rules);
         }
 
-        if (!is_array($rules)) {
+        if (!\is_array($rules)) {
             throw new \InvalidArgumentException('Expected rules to be an iterable.');
         }
 
