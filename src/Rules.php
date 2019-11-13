@@ -1,17 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Camelot\CsFixer;
 
 /**
  * Camelot's rules.
  *
  * @author Carson Full <carsonfull@gmail.com>
+ * @author Gawain Lynch <gawain.lynch@gmail.com>
  */
 class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
 {
     private $rules = [
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        '@PhpCsFixer' => true,
 
         // Override Symfony's rules
         'braces' => [
@@ -36,6 +40,13 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         'ordered_imports' => true,
         'phpdoc_order' => true,
         'single_line_comment_style' => ['comment_types' => ['hash']],
+        'declare_strict_types' => true,
+        'native_function_invocation' => [
+            'include' => ['@compiler_optimized'],
+        ],
+        'ordered_class_elements' => true,
+        'php_unit_strict' => false,
+        'comment_to_phpdoc' => false,
     ];
 
     private $riskyRules = [
@@ -67,17 +78,42 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         '@PHP71Migration:risky' => true,
     ];
 
+    private $php73Rules = [
+        '@PHP73Migration' => true,
+    ];
+
+    private $phpUnit56Rules = [
+        '@PHPUnit56Migration:risky' => true,
+    ];
+
+    private $phpUnit57Rules = [
+        '@PHPUnit57Migration:risky' => true,
+    ];
+
+    private $phpUnit60Rules = [
+        '@PHPUnit60Migration:risky' => true,
+    ];
+
+    private $phpUnit75Rules = [
+        '@PHPUnit75Migration:risky' => true,
+    ];
+
     private $includeRisky = false;
     private $includePhp56 = false;
     private $includePhp70 = false;
     private $includePhp71 = false;
+    private $includePhp73 = false;
+    private $includePhpUnit56 = false;
+    private $includePhpUnit57 = false;
+    private $includePhpUnit60 = false;
+    private $includePhpUnit75 = false;
 
     /**
      * Create Rules.
      *
      * @return static
      */
-    public static function create()
+    public static function create(): self
     {
         return new static();
     }
@@ -87,7 +123,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
      *
      * @return $this
      */
-    public function risky()
+    public function risky(): self
     {
         $this->includeRisky = true;
 
@@ -97,7 +133,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
     /**
      * {@inheritdoc}
      */
-    public function isRisky()
+    public function isRisky(): bool
     {
         return $this->includeRisky;
     }
@@ -107,7 +143,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
      *
      * @return $this
      */
-    public function php56()
+    public function php56(): self
     {
         $this->includePhp56 = true;
 
@@ -119,7 +155,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
      *
      * @return $this
      */
-    public function php70()
+    public function php70(): self
     {
         $this->php56();
         $this->includePhp70 = true;
@@ -132,10 +168,74 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
      *
      * @return $this
      */
-    public function php71()
+    public function php71(): self
     {
         $this->php70();
         $this->includePhp71 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHP 7.3 (and below) rules.
+     *
+     * @return $this
+     */
+    public function php73(): self
+    {
+        $this->php71();
+        $this->includePhp73 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHPUnit 5.6 rules.
+     *
+     * @return $this
+     */
+    public function phpUnit56(): self
+    {
+        $this->includePhpUnit56 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHPUnit 5.7 rules.
+     *
+     * @return $this
+     */
+    public function phpUnit57(): self
+    {
+        $this->phpUnit56();
+        $this->includePhpUnit57 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHPUnit 6.0 rules.
+     *
+     * @return $this
+     */
+    public function phpUnit60(): self
+    {
+        $this->phpUnit57();
+        $this->includePhpUnit60 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHPUnit 7.5 rules.
+     *
+     * @return $this
+     */
+    public function phpUnit75(): self
+    {
+        $this->phpUnit60();
+        $this->includePhpUnit75 = true;
 
         return $this;
     }
@@ -155,6 +255,22 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         }
         if ($this->includePhp71) {
             $rules += $this->php71Rules;
+        }
+        if ($this->includePhp73) {
+            $rules += $this->php73Rules;
+        }
+
+        if ($this->includePhpUnit56) {
+            $rules += $this->phpUnit56Rules;
+        }
+        if ($this->includePhpUnit57) {
+            $rules += $this->phpUnit57Rules;
+        }
+        if ($this->includePhpUnit60) {
+            $rules += $this->phpUnit60Rules;
+        }
+        if ($this->includePhpUnit75) {
+            $rules += $this->phpUnit75Rules;
         }
 
         if ($this->includeRisky) {
