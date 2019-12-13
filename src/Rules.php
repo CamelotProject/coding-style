@@ -32,21 +32,25 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
 
         // Add additional rules
         'array_syntax' => ['syntax' => 'short'],
+        'comment_to_phpdoc' => false,
+        'declare_strict_types' => true,
         'heredoc_to_nowdoc' => true,
         'linebreak_after_opening_tag' => true,
-        'no_useless_else' => true,
-        'no_useless_return' => true,
-        'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
-        'ordered_imports' => true,
-        'phpdoc_order' => true,
-        'single_line_comment_style' => ['comment_types' => ['hash']],
-        'declare_strict_types' => true,
         'native_function_invocation' => [
             'include' => ['@compiler_optimized'],
         ],
+        'no_useless_else' => true,
+        'no_useless_return' => true,
+        'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
         'ordered_class_elements' => true,
+        'ordered_imports' => true,
         'php_unit_strict' => false,
-        'comment_to_phpdoc' => false,
+        'phpdoc_line_span' => [
+            'const' => 'single',
+            'property' => 'single',
+        ],
+        'phpdoc_order' => true,
+        'single_line_comment_style' => ['comment_types' => ['hash']],
     ];
 
     private $riskyRules = [
