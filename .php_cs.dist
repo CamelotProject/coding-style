@@ -1,6 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 return Camelot\CsFixer\Config::create()
-    ->addRules(Camelot\CsFixer\Rules::create()->risky())
+    ->addRules(
+        Camelot\CsFixer\Rules::create()
+            ->risky()
+            ->php73()
+            ->phpUnit75()
+    )
+    ->addRules([
+        '@PhpCsFixer:risky' => true,
+        'phpdoc_inline_tag' => true,
+        'phpdoc_line_span' => [
+            'const' => 'single',
+            'method' => 'single',
+            'property' => 'single',
+        ],
+    ])
     ->in('src')
+    ->in('tests')
 ;
