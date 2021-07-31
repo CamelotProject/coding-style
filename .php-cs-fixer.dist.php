@@ -11,12 +11,6 @@ return Camelot\CsFixer\Config::create()
     )
     ->addRules([
         '@PhpCsFixer:risky' => true,
-        'phpdoc_inline_tag' => true,
-        'phpdoc_line_span' => [
-            'const' => 'single',
-            'method' => 'single',
-            'property' => 'single',
-        ],
     ])
     ->in('src')
 ;
