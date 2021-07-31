@@ -128,9 +128,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function isRisky(): bool
     {
         return $this->includeRisky;
@@ -238,9 +236,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getIterator()
     {
         $rules = $this->rules;

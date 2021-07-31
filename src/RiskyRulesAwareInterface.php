@@ -12,8 +12,6 @@ namespace Camelot\CsFixer;
  */
 interface RiskyRulesAwareInterface
 {
-    /**
-     * Whether risky rules have been included.
-     */
+    /** Whether risky rules have been included. */
     public function isRisky(): bool;
 }
