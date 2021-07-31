@@ -14,8 +14,6 @@ interface RiskyRulesAwareInterface
 {
     /**
      * Whether risky rules have been included.
-     *
-     * @return bool
      */
-    public function isRisky();
+    public function isRisky(): bool;
 }

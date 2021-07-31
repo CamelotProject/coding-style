@@ -19,5 +19,4 @@ return Camelot\CsFixer\Config::create()
         ],
     ])
     ->in('src')
-    ->in('tests')
 ;
