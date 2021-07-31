@@ -25,9 +25,6 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         'method_argument_space' => [
             'on_multiline' => 'ensure_fully_multiline',
         ],
-        // Non-line @inheritdoc completely replaces anything else
-        // So notes can be added without including it in the doc.
-        'phpdoc_inline_tag' => false,
         'yoda_style' => ['equal' => false, 'identical' => false],
 
         // Add additional rules
@@ -47,6 +44,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         'php_unit_strict' => false,
         'phpdoc_line_span' => [
             'const' => 'single',
+            'method' => 'single',
             'property' => 'single',
         ],
         'phpdoc_order' => true,
@@ -61,10 +59,6 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         // Add additional rules
         'strict_comparison' => true,
         'strict_param' => true,
-    ];
-
-    private $php56Rules = [
-        '@PHP56Migration' => true,
     ];
 
     private $php70Rules = [
@@ -134,9 +128,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function isRisky(): bool
     {
         return $this->includeRisky;
@@ -244,16 +236,11 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getIterator()
     {
         $rules = $this->rules;
 
-        if ($this->includePhp56) {
-            $rules += $this->php56Rules;
-        }
         if ($this->includePhp70) {
             $rules += $this->php70Rules;
         }

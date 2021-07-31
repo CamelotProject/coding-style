@@ -11,16 +11,19 @@ namespace Camelot\CsFixer;
  */
 class Config extends \PhpCsFixer\Config
 {
+    public static function create(string $name = 'default'): self
+    {
+        return new self($name);
+    }
+
     /**
      * Add directories to scan.
      *
      * @param string[] $dirs Directory paths
      *
      * @throws \InvalidArgumentException if one of the directories does not exist
-     *
-     * @return $this
      */
-    public function in(...$dirs)
+    public function in(...$dirs): self
     {
         $this->getFinder()->in($dirs);
 
@@ -31,12 +34,8 @@ class Config extends \PhpCsFixer\Config
      * Add to the current rules. Overrides existing rules.
      *
      * See {@see setRules} for the format of these rules.
-     *
-     * @param iterable $rules
-     *
-     * @return $this
      */
-    public function addRules($rules)
+    public function addRules(iterable $rules): self
     {
         if ($rules instanceof RiskyRulesAwareInterface && $rules->isRisky()) {
             $this->setRiskyAllowed(true);
