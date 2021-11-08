@@ -80,6 +80,26 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         '@PHP73Migration' => true,
     ];
 
+    private $php74Rules = [
+        '@PHP74Migration' => true,
+    ];
+
+    private $php74RulesRisky = [
+        '@PHP74Migration:risky' => true,
+    ];
+
+    private $php80Rules = [
+        '@PHP80Migration' => true,
+    ];
+
+    private $php80RulesRisky = [
+        '@PHP80Migration:risky' => true,
+    ];
+
+    private $php81Rules = [
+        '@PHP81Migration' => true,
+    ];
+
     private $phpUnit56Rules = [
         '@PHPUnit56Migration:risky' => true,
     ];
@@ -96,15 +116,23 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         '@PHPUnit75Migration:risky' => true,
     ];
 
+    private $phpUnit84Rules = [
+        '@PHPUnit84Migration:risky' => true,
+    ];
+
     private $includeRisky = false;
     private $includePhp56 = false;
     private $includePhp70 = false;
     private $includePhp71 = false;
     private $includePhp73 = false;
+    private $includePhp74 = false;
+    private $includePhp80 = false;
+    private $includePhp81 = false;
     private $includePhpUnit56 = false;
     private $includePhpUnit57 = false;
     private $includePhpUnit60 = false;
     private $includePhpUnit75 = false;
+    private $includePhpUnit84 = false;
 
     /**
      * Create Rules.
@@ -186,6 +214,45 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
     }
 
     /**
+     * Include PHP 7.4 (and below) rules.
+     *
+     * @return $this
+     */
+    public function php74(): self
+    {
+        $this->php73();
+        $this->includePhp74 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHP 8.0 (and below) rules.
+     *
+     * @return $this
+     */
+    public function php80(): self
+    {
+        $this->php74();
+        $this->includePhp80 = true;
+
+        return $this;
+    }
+
+    /**
+     * Include PHP 8.1 (and below) rules.
+     *
+     * @return $this
+     */
+    public function php81(): self
+    {
+        $this->php80();
+        $this->includePhp81 = true;
+
+        return $this;
+    }
+
+    /**
      * Include PHPUnit 5.6 rules.
      *
      * @return $this
@@ -236,6 +303,19 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         return $this;
     }
 
+    /**
+     * Include PHPUnit 8.4 rules.
+     *
+     * @return $this
+     */
+    public function phpUnit84(): self
+    {
+        $this->phpUnit75();
+        $this->includePhpUnit84 = true;
+
+        return $this;
+    }
+
     /** {@inheritdoc} */
     public function getIterator()
     {
@@ -250,6 +330,15 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         if ($this->includePhp73) {
             $rules += $this->php73Rules;
         }
+        if ($this->includePhp74) {
+            $rules += $this->php74Rules;
+        }
+        if ($this->includePhp80) {
+            $rules += $this->php80Rules;
+        }
+        if ($this->includePhp81) {
+            $rules += $this->php81Rules;
+        }
 
         if ($this->includePhpUnit56) {
             $rules += $this->phpUnit56Rules;
@@ -263,6 +352,9 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         if ($this->includePhpUnit75) {
             $rules += $this->phpUnit75Rules;
         }
+        if ($this->includePhpUnit84) {
+            $rules += $this->phpUnit84Rules;
+        }
 
         if ($this->includeRisky) {
             $rules += $this->riskyRules;
@@ -272,6 +364,12 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
             }
             if ($this->includePhp71) {
                 $rules += $this->php71RulesRisky;
+            }
+            if ($this->includePhp74) {
+                $rules += $this->php74RulesRisky;
+            }
+            if ($this->includePhp80) {
+                $rules += $this->php80RulesRisky;
             }
         }
 
