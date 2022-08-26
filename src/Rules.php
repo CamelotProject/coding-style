@@ -28,6 +28,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
 
         // Add additional rules
         'array_syntax' => ['syntax' => 'short'],
+        'blank_line_before_statement' => false,
         'comment_to_phpdoc' => false,
         'declare_strict_types' => true,
         'heredoc_to_nowdoc' => true,
@@ -39,7 +40,10 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
         'no_useless_return' => true,
         'multiline_whitespace_before_semicolons' => ['strategy' => 'new_line_for_chained_calls'],
         'ordered_class_elements' => true,
-        'ordered_imports' => true,
+        'ordered_imports' => [
+            'sort_algorithm' => 'alpha',
+            'imports_order' => ['const', 'class', 'function'],
+        ],
         'php_unit_strict' => false,
         'phpdoc_line_span' => [
             'const' => 'single',
@@ -52,6 +56,7 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
 
     private $riskyRules = [
         '@Symfony:risky' => true,
+        '@PhpCsFixer:risky' => true,
         '@PHPUnit84Migration:risky' => true,
 
         // Override Symfony's rules
