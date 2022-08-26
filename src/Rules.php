@@ -56,7 +56,6 @@ class Rules implements \IteratorAggregate, RiskyRulesAwareInterface
 
     private $riskyRules = [
         '@Symfony:risky' => true,
-        '@PhpCsFixer:risky' => true,
         '@PHPUnit84Migration:risky' => true,
 
         // Override Symfony's rules
